@@ -1,0 +1,31 @@
+
+#aliSearchAddon {
+	z-index: 1000;
+	position: fixed;
+	top: 0;
+	left: 0;
+	padding: 8px;
+}
+
+#aliSearchAddon #btnUnitPrice {
+	
+}
+
+#aliSearchAddon .as-button {
+    background-color: #4CAF50; /* Green */
+    border: 1px solid green;
+    color: white;
+    padding: 2px 6px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    float: left;
+}
+#aliSearchAddon .as-button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+}
+#aliSearchAddon .as-button:hover {
+    background-color: #3e8e41;
+}
