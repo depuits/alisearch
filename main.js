@@ -2,30 +2,63 @@ var box = document.createElement('div');
 document.body.appendChild(box);
 box.id = 'aliSearchAddon';
 
-console.log(document.location);
+var optCheapestUnit = {
+	unitPrice: true,
+	sort: 'price_asc',
+	freeShipping: true
+};
+
+//about:debugging
 if (document.location.pathname === '/wholesale') {
-	var btn = document.createElement('button');
-	btn.id = 'btnUnitPrice';
-	btn.appendChild(document.createTextNode('Unit price'));
-	btn.classList.add('as-button');
-	box.appendChild(btn);
-
-	btn.addEventListener('click', updateUrl);
-
-	function updateUrl() {
-		//add to search
-		document.location.search = insertParam('isUnitPrice', 'y');
-
 		//SortType=price_asc
-		//about:debugging
+		//minQuantity=12
+		//maxQuantity=12
+	box.innerHTML = `<form id="asSearchDataForm">
+<div>
+	<input type="hidden" name="isUnitPrice" value="n">
+	<input type="checkbox" id="asSearchUnit" name="isUnitPrice" value="y">
+	<label for="asSearchUnit">Unit price</label>
+</div>
+<button id="asBtnSearch" class="as-button">Search</button>
+</form>`;
+
+	searchBtn = document.getElementById('asBtnSearch');
+	searchBtn.addEventListener('click', (e) => {
+		e.preventDefault();
+		var form = document.getElementById ('asSearchDataForm');
+		var formData = new FormData(form);
+		var opts = {};
+
+		//gather all parameters from name value pair
+		for (var entry of formData.entries())
+		{
+			opts[entry[0]] = entry[1];
+		}
+
+		updateSearch(opts);
+	});
+
+	function updateSearch(opts) {
+		var s = document.location.search.substr(1);
+		opts = opts || {};
+
+		//add to search
+		for(key in opts){
+			var value = opts[key];
+			if (key && value) {
+				s = insertParam(s, key, value);
+			}
+		}
+
+		document.location.search = s;
 	}
 }
 
-function insertParam(key, value) {
+function insertParam(s, key, value) {
 	key = encodeURIComponent(key); 
 	value = encodeURIComponent(value);
 
-	var kvp = document.location.search.substr(1).split('&');
+	var kvp = (s == '') ? [] : s.split('&');
 	var i = kvp.length; 
 	while (i--) {
 		var x = kvp[i].split('=');
@@ -41,6 +74,5 @@ function insertParam(key, value) {
 		kvp[kvp.length] = [key, value].join('='); 
 	}
 
-	//this will reload the page, it's likely better to store this until finished
 	return kvp.join('&');
 }

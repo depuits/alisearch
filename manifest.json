@@ -12,11 +12,6 @@
 		"48": "icons/icon_48.png"
 	},
 
-	"permissions": [
-		"*://*.aliexpress.com/*", 
-		"activeTab"
-	],
-
 	"content_scripts": [{
 		"matches": ["*://*.aliexpress.com/*"],
 		"js": ["main.js"],

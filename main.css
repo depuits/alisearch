@@ -2,9 +2,19 @@
 #aliSearchAddon {
 	z-index: 1000;
 	position: fixed;
-	top: 0;
-	left: 0;
+	top: 8px;
+	left: 8px;
 	padding: 8px;
+    width: 32px;
+    height: 32px;
+    background-color: #555;
+    overflow: hidden;
+}
+
+#aliSearchAddon:hover
+{
+    width: auto;
+    height: auto;
 }
 
 #aliSearchAddon #btnUnitPrice {
